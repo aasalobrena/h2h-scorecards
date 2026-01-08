@@ -200,7 +200,8 @@ const scorecards = (
         { length: numberOfMatches },
         (_, matchIndex) => {
           const currentMatchNumber = matchNumber + 1 + matchIndex;
-          let firstSeed: number, secondSeed: number;
+          let firstSeed = 0,
+            secondSeed = 0;
           if (stage === stages[0]) {
             type SupportedStages = 4 | 8 | 12 | 16;
             const seedMap: Record<SupportedStages, number[]> = {
@@ -228,35 +229,40 @@ const scorecards = (
                 break;
             }
           }
-          return Array.from({ length: numberOfSets }, (_, setIndex) => {
-            const setNumber = setIndex + 1;
-            return [
+          const setCards: Content[] = [];
+          for (let i = 0; i < numberOfSets; i++) {
+            setCards.push(
               scorecard({
                 scorecardNumber: firstSeed,
                 competitionName: wcif.shortName,
                 eventId,
                 stageNumber: stage,
                 matchNumber: currentMatchNumber,
-                setNumber,
+                setNumber: i + 1,
                 id: competitors[firstSeed - 1]?.id,
                 name: competitors[firstSeed - 1]?.name,
                 wcaId: competitors[firstSeed - 1]?.wcaId,
-              }),
+              })
+            );
+          }
+          for (let i = 0; i < numberOfSets; i++) {
+            setCards.push(
               scorecard({
                 scorecardNumber: secondSeed,
                 competitionName: wcif.shortName,
                 eventId,
                 stageNumber: stage,
                 matchNumber: currentMatchNumber,
-                setNumber,
+                setNumber: i + 1,
                 id: competitors[secondSeed - 1]?.id,
                 name: competitors[secondSeed - 1]?.name,
                 wcaId: competitors[secondSeed - 1]?.wcaId,
-              }),
-            ];
-          });
+              })
+            );
+          }
+          return setCards;
         }
-      ).flat(2);
+      ).flat();
       matchNumber += numberOfMatches;
       return stageCards;
     });
@@ -330,7 +336,7 @@ const scorecard = ({
       fontSize: 10,
       columns: [
         {
-          text: scorecardNumber,
+          text: scorecardNumber || "",
           alignment: "left",
         },
         {},
