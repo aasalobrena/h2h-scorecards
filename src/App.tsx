@@ -76,22 +76,22 @@ export const App = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    try {
-      setLoading(true);
-      if (!competitionId) return;
-      const fetchData = async () => {
+    if (!competitionId) return;
+    const fetchData = async () => {
+      try {
+        setLoading(true);
         const res = await fetch(
           `https://www.worldcubeassociation.org/api/v0/competitions/${competitionId}/wcif/public/`
         );
         const data = await res.json();
         setWcif(data.error ? null : data);
-      };
-      fetchData();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, [competitionId]);
 
   const handleSearchClick = () => {
