@@ -71,22 +71,30 @@ const Select = ({ eventId, stage }: SelectProps) => (
 export const App = () => {
   const [competitionId, setCompetitionId] = useState("");
   const [selectedEvents, setSelectedEvents] = useState<EventId[]>([]);
-  const [wcif, setWcif] = useState<Competition | null>(null);
+  const [wcif, setWcif] = useState<Competition>();
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!competitionId) return;
-    const fetchData = async () => {
-      const res = await fetch(
-        `https://www.worldcubeassociation.org/api/v0/competitions/${competitionId}/wcif/public/`
-      );
-      const data = await res.json();
-      setWcif(data.error ? null : data);
-    };
-    fetchData();
+    try {
+      setLoading(true);
+      if (!competitionId) return;
+      const fetchData = async () => {
+        const res = await fetch(
+          `https://www.worldcubeassociation.org/api/v0/competitions/${competitionId}/wcif/public/`
+        );
+        const data = await res.json();
+        setWcif(data.error ? null : data);
+      };
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }, [competitionId]);
 
-  const handleCheckClick = () => {
+  const handleSearchClick = () => {
     if (inputRef.current) {
       setCompetitionId(inputRef.current.value);
     }
@@ -143,7 +151,7 @@ export const App = () => {
           />
         </div>
         <button
-          onClick={handleCheckClick}
+          onClick={handleSearchClick}
           style={{
             padding: "8px 12px",
             fontSize: "16px",
@@ -152,7 +160,7 @@ export const App = () => {
         >
           Search
         </button>
-        {wcif && (
+        {wcif && !loading ? (
           <>
             <ConfigSelect
               id="size"
@@ -187,6 +195,8 @@ export const App = () => {
               ]}
             />
           </>
+        ) : (
+          loading && "Loading..."
         )}
       </div>
       <div
@@ -196,89 +206,87 @@ export const App = () => {
           gap: "10px",
         }}
       >
-        {wcif ? (
-          wcif.events
-            .filter(
-              (event) =>
-                ["333", "444", "333bf", "333oh"].includes(event.id) &&
-                [4, 8, 12, 16].includes(getCompetitorLength(event))
-            )
-            .map((event) => (
-              <div
-                key={event.id}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "8px",
-                  border: "1px solid #ddd",
-                  borderRadius: "6px",
-                  backgroundColor: "#f9f9f9",
-                  marginBottom: "12px",
-                  gap: "8px",
-                }}
-              >
+        {wcif && !loading
+          ? wcif.events
+              .filter(
+                (event) =>
+                  ["333", "444", "333bf", "333oh"].includes(event.id) &&
+                  [4, 8, 12, 16].includes(getCompetitorLength(event))
+              )
+              .map((event) => (
                 <div
+                  key={event.id}
                   style={{
                     display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
+                    flexDirection: "column",
+                    padding: "8px",
+                    border: "1px solid #ddd",
+                    borderRadius: "6px",
+                    backgroundColor: "#f9f9f9",
+                    marginBottom: "12px",
+                    gap: "8px",
                   }}
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedEvents.includes(event.id)}
-                    onChange={() => toggleEvent(event.id)}
-                  />
-                  <span>
-                    {getEventName(event.id)}: Bracket of{" "}
-                    {getCompetitorLength(event)}
-                  </span>
-                </div>
-                {selectedEvents.includes(event.id) && (
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      gap: "6px",
-                      marginLeft: "20px",
+                      alignItems: "center",
+                      gap: "10px",
                     }}
                   >
-                    {[12, 16].includes(getCompetitorLength(event)) && (
-                      <>
-                        Stage of {getCompetitorLength(event)}:
-                        <Select
-                          eventId={event.id}
-                          stage={getCompetitorLength(event)}
-                        />
-                      </>
-                    )}
-                    {[8, 12, 16].includes(getCompetitorLength(event)) && (
-                      <>
-                        Quarterfinal Stage:
-                        <Select eventId={event.id} stage={8} />
-                      </>
-                    )}
-                    <>
-                      Semifinal Stage:
-                      <Select eventId={event.id} stage={4} />
-                    </>
-                    <>
-                      Third Place Match:
-                      <Select eventId={event.id} stage={2} />
-                    </>
-                    <>
-                      Final Match:
-                      <Select eventId={event.id} stage={1} />
-                    </>
+                    <input
+                      type="checkbox"
+                      checked={selectedEvents.includes(event.id)}
+                      onChange={() => toggleEvent(event.id)}
+                    />
+                    <span>
+                      {getEventName(event.id)}: Bracket of{" "}
+                      {getCompetitorLength(event)}
+                    </span>
                   </div>
-                )}
-              </div>
-            ))
-        ) : (
-          <p>This competition doesn't exist</p>
-        )}
+                  {selectedEvents.includes(event.id) && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "6px",
+                        marginLeft: "20px",
+                      }}
+                    >
+                      {[12, 16].includes(getCompetitorLength(event)) && (
+                        <>
+                          Stage of {getCompetitorLength(event)}:
+                          <Select
+                            eventId={event.id}
+                            stage={getCompetitorLength(event)}
+                          />
+                        </>
+                      )}
+                      {[8, 12, 16].includes(getCompetitorLength(event)) && (
+                        <>
+                          Quarterfinal Stage:
+                          <Select eventId={event.id} stage={8} />
+                        </>
+                      )}
+                      <>
+                        Semifinal Stage:
+                        <Select eventId={event.id} stage={4} />
+                      </>
+                      <>
+                        Third Place Match:
+                        <Select eventId={event.id} stage={2} />
+                      </>
+                      <>
+                        Final Match:
+                        <Select eventId={event.id} stage={1} />
+                      </>
+                    </div>
+                  )}
+                </div>
+              ))
+          : wcif === null && <p>This competition doesn't exist</p>}
       </div>
-      {wcif && (
+      {wcif && !loading && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <button
             onClick={handleDownloadClick}
