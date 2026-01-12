@@ -307,6 +307,17 @@ const stageShortName = (stageNumber: number) => {
   }
 };
 
+const matchShortName = (stageNumber: number, matchNumber: number) => {
+  switch (stageNumber) {
+    case 1:
+      return "F";
+    case 2:
+      return "TP";
+    default:
+      return `${matchNumber}`;
+  }
+};
+
 type ScorecardParams = {
   scorecardNumber: number;
   competitionName: string;
@@ -365,7 +376,10 @@ const scorecard = ({
               text: stageShortName(stageNumber),
               alignment: "center",
             },
-            { text: matchNumber, alignment: "center" },
+            {
+              text: matchShortName(stageNumber, matchNumber),
+              alignment: "center",
+            },
             { text: setNumber, alignment: "center" },
           ],
         ],
