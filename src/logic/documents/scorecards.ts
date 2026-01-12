@@ -296,9 +296,8 @@ const scorecards = (
 const stageShortName = (stageNumber: number) => {
   switch (stageNumber) {
     case 1:
-      return "F";
     case 2:
-      return "TP";
+      return "F";
     case 4:
       return "SF";
     case 8:
