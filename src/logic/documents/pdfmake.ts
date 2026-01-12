@@ -5,12 +5,12 @@ fetch(`${import.meta.env.BASE_URL}vfs-fonts.bundle.v3.json`, {
   mode: "same-origin",
 })
   .then((response) => response.json())
-  .then((vfsFonts) => (pdfMake.vfs = vfsFonts));
+  .then((vfsFonts) => pdfMake.addVirtualFileSystem(vfsFonts));
 
 const singleFileFont = (file: string) => ({
   normal: file,
   bold: file,
-  italic: file,
+  italics: file,
   bolditalics: file,
 });
 
