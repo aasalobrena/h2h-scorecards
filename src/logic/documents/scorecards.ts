@@ -1,5 +1,12 @@
 import type { Content, TDocumentDefinitions } from "pdfmake/interfaces";
-import type { Competition, Event, EventId, Person, WcaId } from "@wca/helpers";
+import type {
+  Competition,
+  Event,
+  EventId,
+  Person,
+  RankingType,
+  WcaId,
+} from "@wca/helpers";
 
 import pdfMake from "./pdfmake";
 import { pdfName } from "./pdf-utils";
@@ -167,14 +174,19 @@ const scorecards = (
           .map((result) => result.personId);
       }
     } else {
+      const preferredType = (
+        eventId === "333bf" ? "single" : "average"
+      ) as RankingType;
       personsIds = wcif.persons
         .filter((person) => person.registration?.eventIds.includes(eventId))
         .sort(
           (a, b) =>
-            (a.personalBests?.find((pb) => pb.eventId === eventId)
-              ?.worldRanking as number) -
-            (b.personalBests?.find((pb) => pb.eventId === eventId)
-              ?.worldRanking as number)
+            (a.personalBests?.find(
+              (pb) => pb.eventId === eventId && pb.type === preferredType
+            )?.worldRanking as number) -
+            (b.personalBests?.find(
+              (pb) => pb.eventId === eventId && pb.type === preferredType
+            )?.worldRanking as number)
         )
         .map((person) => person.registrantId);
     }
