@@ -25,8 +25,8 @@ importers:
         specifier: 9.39.2
         version: 9.39.2
       '@types/pdfmake':
-        specifier: 0.2.12
-        version: 0.2.12
+        specifier: 0.3.0
+        version: 0.3.0
       '@types/react':
         specifier: 19.2.10
         version: 19.2.10
@@ -35,7 +35,7 @@ importers:
         version: 19.2.3(@types/react@19.2.10)
       '@vitejs/plugin-react':
         specifier: 5.1.2
-        version: 5.1.2(vite@7.3.1(@types/node@25.0.3)(yaml@2.8.2))
+        version: 5.1.2(vite@7.3.1(@types/node@25.2.0)(yaml@2.8.2))
       eslint:
         specifier: 9.39.2
         version: 9.39.2
@@ -59,7 +59,7 @@ importers:
         version: 8.53.1(eslint@9.39.2)(typescript@5.9.3)
       vite:
         specifier: 7.3.1
-        version: 7.3.1(@types/node@25.0.3)(yaml@2.8.2)
+        version: 7.3.1(@types/node@25.2.0)(yaml@2.8.2)
 
 packages:
 
@@ -518,14 +518,14 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@25.0.3':
-    resolution: {integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==}
+  '@types/node@25.2.0':
+    resolution: {integrity: sha512-DZ8VwRFUNzuqJ5khrvwMXHmvPe+zGayJhr2CDNiKB1WBE1ST8Djl00D0IC4vvNmHMdj6DlbYRIaFE7WHjlDl5w==}
 
   '@types/pdfkit@0.17.4':
     resolution: {integrity: sha512-odAmVuuguRxKh1X4pbMrJMp8ecwNqHRw6lweupvzK+wuyNmi6wzlUlGVZ9EqMvp3Bs2+L9Ty0sRlrvKL+gsQZg==}
 
-  '@types/pdfmake@0.2.12':
-    resolution: {integrity: sha512-YV3oY+J1eSHVH22fPuevE2kQdWvrpkEgYyHacExxgr//ZPjCitAggnysGjx/2VgiH0lEAGQ+5R+wZUGbAXn1Qg==}
+  '@types/pdfmake@0.3.0':
+    resolution: {integrity: sha512-WjkNTseNkoT7Rpg3bfjV1tM5k4BzgmNX7WJwodw1T02KyKSyf4/vCy/2nThnUcsKglYu8blFXmVTXtht39E5YA==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -1714,17 +1714,17 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@25.0.3':
+  '@types/node@25.2.0':
     dependencies:
       undici-types: 7.16.0
 
   '@types/pdfkit@0.17.4':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.2.0
 
-  '@types/pdfmake@0.2.12':
+  '@types/pdfmake@0.3.0':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.2.0
       '@types/pdfkit': 0.17.4
 
   '@types/react-dom@19.2.3(@types/react@19.2.10)':
@@ -1826,7 +1826,7 @@ snapshots:
       '@typescript-eslint/types': 8.53.1
       eslint-visitor-keys: 4.2.1
 
-  '@vitejs/plugin-react@5.1.2(vite@7.3.1(@types/node@25.0.3)(yaml@2.8.2))':
+  '@vitejs/plugin-react@5.1.2(vite@7.3.1(@types/node@25.2.0)(yaml@2.8.2))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
@@ -1834,7 +1834,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.53
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 7.3.1(@types/node@25.0.3)(yaml@2.8.2)
+      vite: 7.3.1(@types/node@25.2.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -2504,7 +2504,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite@7.3.1(@types/node@25.0.3)(yaml@2.8.2):
+  vite@7.3.1(@types/node@25.2.0)(yaml@2.8.2):
     dependencies:
       esbuild: 0.27.2
       fdir: 6.5.0(picomatch@4.0.3)
@@ -2513,7 +2513,7 @@ snapshots:
       rollup: 4.53.5
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.2.0
       fsevents: 2.3.3
       yaml: 2.8.2
 
