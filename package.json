@@ -34,7 +34,7 @@
     "gh-pages": "6.3.0",
     "globals": "17.3.0",
     "prettier": "3.8.1",
-    "typescript-eslint": "8.54.0",
+    "typescript-eslint": "8.56.1",
     "vite": "7.3.1"
   },
   "packageManager": "pnpm@10.28.2"
