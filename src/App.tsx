@@ -4,6 +4,7 @@ import {
   type Event,
   type EventId,
   getEventName,
+  type RoundFormat,
 } from "@wca/helpers";
 
 import { downloadScorecards } from "./logic/documents/scorecards";
@@ -81,7 +82,7 @@ export const App = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://www.worldcubeassociation.org/api/v0/competitions/${competitionId}/wcif/public/`
+          `https://www.worldcubeassociation.org/api/v0/competitions/${competitionId}/wcif/public/`,
         );
         const data = await res.json();
         setWcif(data.error ? null : data);
@@ -102,7 +103,7 @@ export const App = () => {
 
   const toggleEvent = (id: EventId) => {
     setSelectedEvents((prev) =>
-      prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id],
     );
   };
 
@@ -120,7 +121,7 @@ export const App = () => {
         const element = document.getElementById(`${eventId}-${i}`);
         if (element) {
           scorecardsData[eventId][i] = Number(
-            (element as HTMLSelectElement).value
+            (element as HTMLSelectElement).value,
           );
         }
       }
@@ -210,8 +211,10 @@ export const App = () => {
           ? wcif.events
               .filter(
                 (event) =>
-                  ["333", "444", "333bf", "333oh"].includes(event.id) &&
-                  [4, 8, 12, 16].includes(getCompetitorLength(event))
+                  (event.rounds.at(-1)?.format as
+                    | RoundFormat
+                    | undefined
+                    | "h") === "h",
               )
               .map((event) => (
                 <div
