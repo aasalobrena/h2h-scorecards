@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@wca/helpers':
-        specifier: 1.1.6
-        version: 1.1.6
+        specifier: 1.1.7
+        version: 1.1.7
       pdfmake:
         specifier: 0.3.5
         version: 0.3.5
@@ -632,8 +632,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@wca/helpers@1.1.6':
-    resolution: {integrity: sha512-Y5zsRpQ6Bt/aOuqm1dbkb1awYmR3D5hrHHLXYmWLiJzfb8wo4fxyKLIEnK4LrfjWpO+rmictG99cWORhaby5Lg==}
+  '@wca/helpers@1.1.7':
+    resolution: {integrity: sha512-W7cCiEnqFoc1we7TCuYv+fFmnJS+/ot+TT/XZdXr4U+JnVQKgJ9kefG9XjVbBEJ/UNrjrhGrYJ7hDhxvbEYPBg==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1891,7 +1891,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wca/helpers@1.1.6': {}
+  '@wca/helpers@1.1.7': {}
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
